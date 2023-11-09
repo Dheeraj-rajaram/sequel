@@ -99,17 +99,17 @@ function CreateAccount() {
                                         <div className="has-float-label mb-2 col-sm-4">
                                             <input className="form-control" id="dd" type="text" placeholder=""
                                                 onChange={(e) => setFirstName(e.target.value)} />
-                                            <label htmlFor="dd"> &nbsp;&nbsp;dd *</label>
+                                            <label htmlFor="dd"> &nbsp;&nbsp;dd</label>
                                         </div>
                                         <div className="has-float-label mb-2 col-sm-4">
                                             <input className="form-control" id="mm" type="text" placeholder=""
                                                 onChange={(e) => setFirstName(e.target.value)} />
-                                            <label htmlFor="mm"> &nbsp;&nbsp;mm *</label>
+                                            <label htmlFor="mm"> &nbsp;&nbsp;mm</label>
                                         </div>
                                         <div className="has-float-label mb-2 col-sm-4">
                                             <input className="form-control" id="yy" type="text" placeholder=""
                                                 onChange={(e) => setFirstName(e.target.value)} />
-                                            <label htmlFor="yy"> &nbsp;&nbsp;yyyy *</label>
+                                            <label htmlFor="yy"> &nbsp;&nbsp;yyyy</label>
                                         </div>
                                     </div>
                                 </div>
@@ -123,7 +123,7 @@ function CreateAccount() {
                             </div>
                             <div className="row mt-2 mb-3">
                                 <div className="col-sm-6">
-                                    <strong className="my-2">Create new password</strong>
+                                    <strong className="my-2">Create new password *</strong>
                                     <div className="input-group mb-3 mt-3">
                                         <span className="has-float-label">
                                             <input
@@ -136,7 +136,7 @@ function CreateAccount() {
                                                 onChange={(e) => setPassword(e.target.value)}
                                                 autoComplete="current-password"
                                             />
-                                            <label htmlFor="password">Password *</label>
+                                            <label htmlFor="password">Password</label>
                                         </span>
                                         <div className="input-group-append">
                                             <button style={{ borderTop: "solid #dee2e6 1px", borderLeft: "solid #dee2e6 1px", borderRight: "solid #dee2e6 1px", borderBottom: "solid #dee2e6 1px", padding: "6px", background: 'white', borderTopRightRadius: '6px', borderBottomRightRadius: '6px' }} type="button"><span onClick={handleToggle}>
@@ -158,7 +158,7 @@ function CreateAccount() {
                                                 onChange={(e) => setConfirmPassword(e.target.value)}
                                                 autoComplete="current-password"
                                             />
-                                            <label htmlFor="confirmPassword">Confirm Password *</label>
+                                            <label htmlFor="confirmPassword">Confirm Password</label>
                                         </span>
                                         <div className="input-group-append">
                                             <button style={{ borderTop: "solid #dee2e6 1px", borderLeft: "solid #dee2e6 1px", borderRight: "solid #dee2e6 1px", borderBottom: "solid #dee2e6 1px", padding: "6px", background: 'white', borderTopRightRadius: '6px', borderBottomRightRadius: '6px' }} type="button"><span onClick={handleConfirmToggle}>
