@@ -30,7 +30,7 @@ function Access() {
         <section className="">
             <div className="container-fluid">
                 <div className="row justify-content-md-center">
-                    <div className="col-lg-5 vh-100">
+                    <div className="col-md-5 vh-100">
                         <div className="container">
                             <div className="row justify-content-md-center">
                                 <nav className="navbar navbar-expand-lg navbar-light mb-5">
@@ -73,13 +73,17 @@ function Access() {
                                                 {canSignin ? <Link type="submit" to="/checklist" className="btn btn-custom">Sign In</Link> : <button type="submit" className="btn btn-secondary" disabled>Sign In</button>}
                                             </div>
                                             <div className="mt-1">Frogot your <Link className="text-primary" style={{ textDecoration: "none" }} to="/forgot-password">Password?</Link></div>
+                                            
+                                            <Link className="d-grid mt-3 d-xxl-none d-xl-none d-lg-none d-md-none" style={{ textDecoration: "none" }} to="/create-account">
+                                                    <button type="submit" className="btn btn-custom">Create Account</button>
+                                            </Link>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-7 vh-100 bg-light">
+                    <div className="col-md-7 vh-100 bg-light d-none d-sm-block d-sm-none d-md-block">
                         <div className="container">
                             <div className="row justify-content-md-center">
                                 <div className="col-md-auto  mt-5">
@@ -87,23 +91,23 @@ function Access() {
                                         <div className="card" style={{ marginTop: "197px" }}>
                                             <div style={{ marginTop: "-197px" }}><img src="/images/img2.png" alt="logo" width="280" /></div>
                                             <div className="card-body text-start">
-                                                <h5 className="card-title">Information about why patient needs to create account</h5>
-                                                <p className="card-text">Lorem ipsum dolor sit amet, consectetur.</p>
-                                                <h5 className="card-title">Information about why patient needs to create account</h5>
+                                                <h5 className="card-title">Welcome to the world of Twiist!!</h5>
+                                                <p className="card-text text-justify">Embark on a journey towards effective diabetes management and a simplified life. Let's begin this transformative experience together...</p>
+                                                <h5 className="card-title">Why access Twiist Portal?</h5>
                                                 <div className="row">
                                                     <div className="col-lg-5"><ul>
-                                                        <li className="">Lorem ipsum</li>
-                                                        <li className="">Lorem ipsum</li>
-                                                        <li className="">Lorem ipsum</li>
+                                                        <li className="">Manage your account</li>
+                                                        <li className="">Find all your Twiist Supply needs</li>
+                                                        <li className="">Access e-learning modules, Guides and Resources</li>
                                                     </ul>
                                                     </div>
                                                     <div className="col-lg-5"><ul>
-                                                        <li className="">Lorem ipsum</li>
-                                                        <li className="">Lorem ipsum</li>
+                                                        <li className="">See a summary of your AGP and Insulin Settings</li>
+                                                        <li className="">Get Support from the experts</li>
                                                     </ul>
                                                     </div>
                                                 </div>
-                                                <Link className="d-grid" style={{textDecoration: "none"}} to="/create-account">
+                                                <Link className="d-grid" style={{ textDecoration: "none" }} to="/create-account">
                                                     <button type="submit" className="btn btn-custom">Create Account</button>
                                                 </Link>
                                             </div>

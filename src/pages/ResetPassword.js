@@ -92,19 +92,19 @@ function ResetPassword() {
                                     <div className="form-check mt-2">
                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault001" defaultChecked />
                                         <label className="form-check-label" htmlFor="flexCheckDefault001">
-                                            Characters from (Uppercase, lowercase, numbers, special Characters)
+                                        Characters from (uppercase, lowercase, number, special characters)
                                         </label>
                                     </div>
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault002" defaultChecked />
                                         <label className="form-check-label" htmlFor="flexCheckDefault002">
-                                            Atlease 8 Characterslong
+                                        At least 8 characters long
                                         </label>
                                     </div>
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault003" defaultChecked />
                                         <label className="form-check-label" htmlFor="flexCheckDefault003">
-                                            cannot include parts of first name, last name or username
+                                        Cannot include parts of first name, last name or username
                                         </label>
                                     </div>
                                 </div>

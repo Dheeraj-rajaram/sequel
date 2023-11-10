@@ -5,7 +5,9 @@ import UserPool from "../UserPool";
 function CreateAccount() {
     const [email, setEmail] = useState("");
     const [firstName, setFirstName] = useState("");
+    const [phonenumber, setPhonenumber] = useState();
     const [lastName, setLastName] = useState("");
+    const [date, setDate] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [password, setPassword] = useState("");
     const [type, setType] = useState('password');
@@ -43,15 +45,20 @@ function CreateAccount() {
 
     const onSubmit = (event) => {
         event.preventDefault();
-        UserPool.signUp(email, password, [], null, (err, data)=>{
-            if(err) {
+        UserPool.signUp(email, password, [], null, (err, data) => {
+            if (err) {
                 console.error(err.message)
             }
-            else{
-                console.log({userSub: data.userSub, userName: data.user.username, clientId: data.user.pool.clientId});
+            else {
+                console.log({ userSub: data.userSub, userName: data.user.username, clientId: data.user.pool.clientId });
             }
         })
     }
+    const handlePhoneChange = (event) => {
+        const num = event.target.value.replace(/\D/g, '');
+        const formattedPhoneNumber = '(' + num.substring(0, 3) + ') ' + num.substring(3, 6) + '-' + num.substring(6, 10);
+        setPhonenumber(formattedPhoneNumber);
+      };
     return (
         <section className="">
             <div className="container-fluid">
@@ -92,32 +99,23 @@ function CreateAccount() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="my-2">Date of birth *</div>
                             <div className="row">
                                 <div className="col-sm-6">
-                                    <div className="row">
-                                        <div className="has-float-label mb-2 col-sm-4">
-                                            <input className="form-control" id="dd" type="text" placeholder=""
-                                                onChange={(e) => setFirstName(e.target.value)} />
-                                            <label htmlFor="dd"> &nbsp;&nbsp;dd</label>
-                                        </div>
-                                        <div className="has-float-label mb-2 col-sm-4">
-                                            <input className="form-control" id="mm" type="text" placeholder=""
-                                                onChange={(e) => setFirstName(e.target.value)} />
-                                            <label htmlFor="mm"> &nbsp;&nbsp;mm</label>
-                                        </div>
-                                        <div className="has-float-label mb-2 col-sm-4">
-                                            <input className="form-control" id="yy" type="text" placeholder=""
-                                                onChange={(e) => setFirstName(e.target.value)} />
-                                            <label htmlFor="yy"> &nbsp;&nbsp;yyyy</label>
-                                        </div>
+                                    <div className="my-2">Date of birth *</div>
+                                    <div className="mb-3">
+                                        <input className="form-control" id="yy" type="date" placeholder=""
+                                            onChange={(e) => setDate(e.target.value)} />
                                     </div>
                                 </div>
                                 <div className="col-sm-6">
-                                    <div className="has-float-label mb-3">
-                                        <input className="form-control" id="phone" type="text" placeholder=""
-                                            onChange={(e) => setLastName(e.target.value)} />
-                                        <label htmlFor="phone">Primary Phone number *</label>
+                                    <div className="my-2">Primary Phone number *</div>
+                                    <div className="mb-3">
+                                        <input className="form-control" 
+                                            id="phone" 
+                                            type="text" 
+                                            placeholder="(XXX) XXX-XXXX"
+                                            value={phonenumber}
+                                            onChange={handlePhoneChange} />
                                     </div>
                                 </div>
                             </div>
@@ -174,24 +172,24 @@ function CreateAccount() {
                                     <div className="form-check mt-2">
                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault0" defaultChecked />
                                         <label className="form-check-label" htmlFor="flexCheckDefault0">
-                                            Characters from (Uppercase, lowercase, numbers, special Characters)
+                                            Characters from (uppercase, lowercase, number, special characters)
                                         </label>
                                     </div>
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault10" defaultChecked />
                                         <label className="form-check-label" htmlFor="flexCheckDefault10">
-                                            Atlease 8 Characterslong
+                                            At least 8 characters long
                                         </label>
                                     </div>
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault20" defaultChecked />
                                         <label className="form-check-label" htmlFor="flexCheckDefault20">
-                                            cannot include parts of first name, last name or username
+                                            Cannot include parts of first name, last name or username
                                         </label>
                                     </div>
                                 </div>
                             </div>
-                            <strong className="">Health information</strong>
+                            {/* <strong className="">Health information</strong>
                             <div className="row mt-2">
                                 <div className="col-sm-6">
                                     <div className="row">
@@ -211,7 +209,7 @@ function CreateAccount() {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             <h1 className="mt-3">Terms of use</h1>
                             <div className="form-check mt-3">
                                 <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
