@@ -1,4 +1,5 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom'
 
 function CheckList() {
@@ -19,7 +20,13 @@ function CheckList() {
         setStep(3);
         setProgress(100);
     }
-
+    useEffect(() => {
+        async function fetchData() {
+            // const token = localStorage.getItem('token')
+            // const response = await axios.post('/verify');
+        }
+        fetchData();
+    }, []);
     return (<>
         <section className="">
             <div className="container-fluid">

@@ -6,11 +6,12 @@ import Axios from '../api/Axios';
 import AuthContext from '../context/AuthProvider';
 import useAuth from '../components/hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 // axios.defaults.baseURL = 'http://localhost:3002';
 
 const Login = () => {
-    const {authToken, setAuthToken} = useAuth();
+    let { authToken, setAuthToken } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/checklist';
@@ -23,8 +24,10 @@ const Login = () => {
         const response = await Axios.post('/login', { email, password });
         const token = response.data.accessToken;
         localStorage.setItem('token', token);
-        setAuthToken(token);
-        console.log("step1: got token", token, {authToken});
+
+        // axios.defaults.baseURL = 'http://localhost:3002';
+        // axios.defaults.headers.common['Content-Type'] = 'application/json';
+        // axios.defaults.headers.post['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
         navigate(from, { replace: true });
     };
 

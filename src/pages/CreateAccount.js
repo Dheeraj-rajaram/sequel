@@ -47,10 +47,10 @@ function CreateAccount() {
         event.preventDefault();
         UserPool.signUp(email, password, [], null, (err, data) => {
             if (err) {
-                console.error(err.message)
+                // console.error(err.message)
             }
             else {
-                console.log({ userSub: data.userSub, userName: data.user.username, clientId: data.user.pool.clientId });
+                // console.log({ userSub: data.userSub, userName: data.user.username, clientId: data.user.pool.clientId });
             }
         })
     }

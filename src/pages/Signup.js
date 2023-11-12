@@ -20,7 +20,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await Axios.post('/signup', {email: formData.email, password: formData.password})
-    console.log(response.data);
+    // console.log(response.data);
     // redirect to login page
     navigate('/login')
 
