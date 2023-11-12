@@ -45,14 +45,14 @@ function CreateAccount() {
 
     const onSubmit = (event) => {
         event.preventDefault();
-        UserPool.signUp(email, password, [], null, (err, data) => {
-            if (err) {
-                // console.error(err.message)
-            }
-            else {
-                // console.log({ userSub: data.userSub, userName: data.user.username, clientId: data.user.pool.clientId });
-            }
-        })
+        // UserPool.signUp(email, password, [], null, (err, data) => {
+        //     if (err) {
+        //         console.error(err.message)
+        //     }
+        //     else {
+        //         console.log({ userSub: data.userSub, userName: data.user.username, clientId: data.user.pool.clientId });
+        //     }
+        // })
     }
     const handlePhoneChange = (event) => {
         const num = event.target.value.replace(/\D/g, '');
