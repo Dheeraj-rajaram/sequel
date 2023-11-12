@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import Axios from "../api/Axios";
 
 function Access() {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/checklist';
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [type, setType] = useState('password');
@@ -25,6 +30,15 @@ function Access() {
             setCanSignin(false)
         }
     }, [password, email])
+
+    const handleLogin = async (event) => {
+        console.log("sadfasdfasfasdf")
+        event.preventDefault();
+        const response = await Axios.post('/login', { email, password });
+        const token = response.data.accessToken;
+        localStorage.setItem('token', token);
+        navigate(from, { replace: true });
+    };
 
     return (
         <section className="">
@@ -70,12 +84,14 @@ function Access() {
                                                 </div>
                                             </div>
                                             <div className="d-grid">
-                                                {canSignin ? <Link type="submit" to="/checklist" className="btn btn-custom">Sign In</Link> : <button type="submit" className="btn btn-secondary" disabled>Sign In</button>}
+                                                {canSignin ? <button type="submit" className="btn btn-custom" onClick={handleLogin}>Sign In</button> : <button type="submit" className="btn btn-secondary" disabled>Sign In</button>}
                                             </div>
                                             <div className="mt-1">Frogot your <Link className="text-primary" style={{ textDecoration: "none" }} to="/forgot-password">Password?</Link></div>
-                                            
+
                                             <Link className="d-grid mt-3 d-xxl-none d-xl-none d-lg-none d-md-none" style={{ textDecoration: "none" }} to="/create-account">
-                                                    <button type="submit" className="btn btn-custom">Create Account</button>
+                                                <button 
+                                                type="submit" 
+                                                className="btn btn-custom"> Create Account </button>
                                             </Link>
                                         </form>
                                     </div>

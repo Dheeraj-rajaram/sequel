@@ -4,10 +4,8 @@ import CreateAccount from "./pages/CreateAccount";
 import Dashboard from "./pages/Dashboard";
 import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
 import ResetPassword from "./pages/ResetPassword";
 import { Route, Routes } from "react-router-dom";
-import SignUp from "./pages/Signup";
 import Layout from "./components/layout/Layout";
 import RequireAuth from "./components/RequireAuth";
 
@@ -15,9 +13,6 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        {/* login */}
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/signup" element={<SignUp />}></Route>
         {/* private */}
         <Route element={<RequireAuth />}>
           <Route path="/dashboard" element={<Dashboard />}></Route>

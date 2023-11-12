@@ -37,16 +37,13 @@ export default function Home() {
                 </a>
               </li>
             </ul>
-            <Link to="/access">
-            <button type="button" className="btn btn-custom">Get Started</button>
-            </Link>
           </div>
         </div>
       </nav>
         <section className="py-5 bg-custom">
             <div className="container">
                 <div className="row">
-                    <Link to="/access" className="col-lg-6 text-start mt-auto">
+                    <Link to="/access" className="col-lg-6 text-start d-flex align-items-center"  style={{ textDecoration: "none" }}>
                         <button type="button" className="col-4 mx-auto btn bg-white fw-bold text-primary">Get Started</button>
                     </Link>
                     <div className="col-lg-6 text-end">

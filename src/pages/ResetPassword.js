@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom';
+import Axios from "../api/Axios";
 
 function ResetPassword() {
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -8,6 +9,9 @@ function ResetPassword() {
     const [icon, setIcon] = useState('eyeoff');
     const [confirmType, setConfirmType] = useState('password');
     const [confirmIcon, setConfirmIcon] = useState('eyeoff');
+    const [searchParams, setSearchParams] = useSearchParams();
+    const token = searchParams.get("token")
+
     const handleToggle = () => {
         if (type === 'password') {
             setIcon("eye");
@@ -26,6 +30,11 @@ function ResetPassword() {
             setConfirmType('password')
         }
     }
+    const handleClick = async (e) => {
+        e.preventDefault();
+        await Axios.post('/reset-password', { password, token });
+    }
+
     return (<>
         <section className="bg-light vh-100">
             <div className="container-fluid">
@@ -84,7 +93,12 @@ function ResetPassword() {
                                     </div>
 
                                     <div className="d-grid mt-4">
-                                        <button type="button" className="btn btn-custom" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Change password</button>
+                                        <button
+                                            type="button"
+                                            className="btn btn-custom"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#staticBackdrop"
+                                            onClick={handleClick}>Change password</button>
                                     </div>
                                 </div>
                                 <div className="col-sm-6">
@@ -92,19 +106,19 @@ function ResetPassword() {
                                     <div className="form-check mt-2">
                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault001" defaultChecked />
                                         <label className="form-check-label" htmlFor="flexCheckDefault001">
-                                        Characters from (uppercase, lowercase, number, special characters)
+                                            Characters from (uppercase, lowercase, number, special characters)
                                         </label>
                                     </div>
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault002" defaultChecked />
                                         <label className="form-check-label" htmlFor="flexCheckDefault002">
-                                        At least 8 characters long
+                                            At least 8 characters long
                                         </label>
                                     </div>
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault003" defaultChecked />
                                         <label className="form-check-label" htmlFor="flexCheckDefault003">
-                                        Cannot include parts of first name, last name or username
+                                            Cannot include parts of first name, last name or username
                                         </label>
                                     </div>
                                 </div>

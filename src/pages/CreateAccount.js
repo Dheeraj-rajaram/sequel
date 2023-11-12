@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import UserPool from "../UserPool";
+import "react-datepicker/dist/react-datepicker.css";
+import { Calendar } from 'primereact/calendar';
+import { InputMask } from 'primereact/inputmask';
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import Axios from "../api/Axios";
 
 function CreateAccount() {
     const [email, setEmail] = useState("");
     const [firstName, setFirstName] = useState("");
     const [phonenumber, setPhonenumber] = useState();
     const [lastName, setLastName] = useState("");
-    const [date, setDate] = useState("");
+    const [dob, setDOB] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [password, setPassword] = useState("");
     const [type, setType] = useState('password');
@@ -15,6 +20,9 @@ function CreateAccount() {
     const [confirmType, setConfirmType] = useState('password');
     const [confirmIcon, setConfirmIcon] = useState('eyeoff');
     const [canSignin, setCanSignin] = useState(false);
+    const [older18, setOlder18] = useState(false)
+    const [hasReadPolicy, setHasreadPolicy] = useState(false)
+    const [hasAuthorized, setHasAuthorized] = useState(false)
 
     const handleToggle = () => {
         if (type === 'password') {
@@ -36,15 +44,16 @@ function CreateAccount() {
     }
 
     useEffect(() => {
-        if (password && email) {
+        if (password && email && older18 && hasAuthorized && hasReadPolicy) {
             setCanSignin(true)
         } else {
             setCanSignin(false)
         }
-    }, [password, email])
+    }, [password, email, older18, hasAuthorized, hasReadPolicy])
 
-    const onSubmit = (event) => {
+    const onSubmit = async (event) => {
         event.preventDefault();
+        await Axios.post('/signup', { email, firstName, lastName, dob, phonenumber, password });
         // UserPool.signUp(email, password, [], null, (err, data) => {
         //     if (err) {
         //         console.error(err.message)
@@ -54,11 +63,7 @@ function CreateAccount() {
         //     }
         // })
     }
-    const handlePhoneChange = (event) => {
-        const num = event.target.value.replace(/\D/g, '');
-        const formattedPhoneNumber = '(' + num.substring(0, 3) + ') ' + num.substring(3, 6) + '-' + num.substring(6, 10);
-        setPhonenumber(formattedPhoneNumber);
-      };
+
     return (
         <section className="">
             <div className="container-fluid">
@@ -76,7 +81,8 @@ function CreateAccount() {
                             <div className="row">
                                 <div className="col-sm-6">
                                     <div className="has-float-label mb-3">
-                                        <input className="form-control" id="email" type="email" placeholder=""
+                                        <input className="form-control" id="email" type="email"
+                                            placeholder=""
                                             onChange={(e) => setEmail(e.target.value)} />
                                         <label htmlFor="email">Enter Email Address *</label>
                                     </div>
@@ -85,7 +91,8 @@ function CreateAccount() {
                             <div className="row">
                                 <div className="col-sm-6">
                                     <div className="has-float-label mb-3">
-                                        <input className="form-control" id="firstName" type="text" placeholder=""
+                                        <input className="form-control" id="firstName" type="text"
+                                            placeholder=""
                                             onChange={(e) => setFirstName(e.target.value)} />
                                         <label htmlFor="firstName">First Name *</label>
                                     </div>
@@ -93,7 +100,8 @@ function CreateAccount() {
 
                                 <div className="col-sm-6">
                                     <div className="has-float-label mb-3">
-                                        <input className="form-control" id="lastName" type="text" placeholder=""
+                                        <input className="form-control" id="lastName" type="text"
+                                            placeholder=""
                                             onChange={(e) => setLastName(e.target.value)} />
                                         <label htmlFor="lastName">Last Name *</label>
                                     </div>
@@ -103,19 +111,21 @@ function CreateAccount() {
                                 <div className="col-sm-6">
                                     <div className="my-2">Date of birth *</div>
                                     <div className="mb-3">
-                                        <input className="form-control" id="yy" type="date" placeholder=""
-                                            onChange={(e) => setDate(e.target.value)} />
+                                        <Calendar
+                                            value={dob}
+                                            onChange={(e) => setDOB(e.value)}
+                                            dateFormat="mm/dd/yy"
+                                            placeholder="mm-dd-yy"
+                                            showIcon />
                                     </div>
                                 </div>
                                 <div className="col-sm-6">
                                     <div className="my-2">Primary Phone number *</div>
                                     <div className="mb-3">
-                                        <input className="form-control" 
-                                            id="phone" 
-                                            type="text" 
+                                        <InputMask id="phone"
+                                            mask="(999) 999-9999"
                                             placeholder="(XXX) XXX-XXXX"
-                                            value={phonenumber}
-                                            onChange={handlePhoneChange} />
+                                            onChange={(e) => setPhonenumber(e.target.value)}></InputMask>
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +142,6 @@ function CreateAccount() {
                                                 placeholder=""
                                                 value={password}
                                                 onChange={(e) => setPassword(e.target.value)}
-                                                autoComplete="current-password"
                                             />
                                             <label htmlFor="password">Password</label>
                                         </span>
@@ -154,7 +163,6 @@ function CreateAccount() {
                                                 placeholder=""
                                                 value={confirmPassword}
                                                 onChange={(e) => setConfirmPassword(e.target.value)}
-                                                autoComplete="current-password"
                                             />
                                             <label htmlFor="confirmPassword">Confirm Password</label>
                                         </span>
@@ -212,19 +220,19 @@ function CreateAccount() {
                             </div> */}
                             <h1 className="mt-3">Terms of use</h1>
                             <div className="form-check mt-3">
-                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                <input className="form-check-input" type="checkbox" checked={older18} onChange={() => setOlder18((prevState) => !prevState)} id="flexCheckDefault" />
                                 <label className="form-check-label" htmlFor="flexCheckDefault">
                                     Im 18 years of age or older
                                 </label>
                             </div>
                             <div className="form-check mt-3">
-                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault1" />
+                                <input className="form-check-input" type="checkbox" checked={hasReadPolicy} onChange={() => setHasreadPolicy((prevState) => !prevState)} id="flexCheckDefault1" />
                                 <label className="form-check-label" htmlFor="flexCheckDefault1">
                                     <div className="mt-1">I have read and understood  <span className="text-primary"> Privacy Policy </span> and  <span className="text-primary">Terms of Use </span> </div>
                                 </label>
                             </div>
                             <div className="form-check mt-3">
-                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault2" />
+                                <input className="form-check-input" type="checkbox" checked={hasAuthorized} onChange={() => setHasAuthorized((prevState) => !prevState)} id="flexCheckDefault2" />
                                 <label className="form-check-label" htmlFor="flexCheckDefault2">
                                     I Authorize corporation, its distributors, affiliates, and wholly-owned subsidiaries to contact my telephone <br />
                                     or email regarding the Sequel Insulin management system and other diabetes related supplies and services

@@ -33,12 +33,12 @@ function CheckList() {
             try {
                 const response = await Axios.post('/verify', {}, { headers });
                 if (!response.data.isAuth) {
-                    navigate('/login');
+                    navigate('/access');
                 } else {
                     setIsloading(false)
                 }
             } catch (error) {
-                navigate('/login');
+                navigate('/access');
             }
         }
         fetchData();

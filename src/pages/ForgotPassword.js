@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom'
+import Axios from "../api/Axios";
 
 function ForgotPassword() {
 
     const [email, setEmail] = useState("");
+
+    async function handleClick(e){
+        e.preventDefault();
+        await Axios.post('/forgot-password', { email });
+    }
 
     return (<>
         <section className="bg-light vh-100">
@@ -46,7 +52,11 @@ function ForgotPassword() {
                                 </div>
                             </div>
                             {email ? <div className="d-grid mt-4">
-                                <button type="button" className="btn btn-custom" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Submit</button>
+                                <button type="button" 
+                                className="btn btn-custom" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#staticBackdrop"
+                                onClick={handleClick}>Submit</button>
                             </div> : ''}
                             <div className="mt-3">Go to <Link className="text-primary" style={{ textDecoration: "none" }} to="/access">Sign in</Link></div>
                         </form>

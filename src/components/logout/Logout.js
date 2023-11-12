@@ -4,7 +4,7 @@ function Logout() {
     const navigate = useNavigate();
     function handleClick() {
         localStorage.removeItem('token');
-        navigate('/login');
+        navigate('/access');
     }
     return (
         <button className="btn btn-custom" onClick={handleClick}>
