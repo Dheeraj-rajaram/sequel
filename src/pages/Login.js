@@ -1,17 +1,8 @@
-import { AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
-import React, { useContext, useState } from 'react';
-import UserPool from '../UserPool';
-import Logout from '../components/logout/Logout';
+import React, { useState } from 'react';
 import Axios from '../api/Axios';
-import AuthContext from '../context/AuthProvider';
-import useAuth from '../components/hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-
-// axios.defaults.baseURL = 'http://localhost:3002';
 
 const Login = () => {
-    let { authToken, setAuthToken } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/checklist';
@@ -24,10 +15,6 @@ const Login = () => {
         const response = await Axios.post('/login', { email, password });
         const token = response.data.accessToken;
         localStorage.setItem('token', token);
-
-        // axios.defaults.baseURL = 'http://localhost:3002';
-        // axios.defaults.headers.common['Content-Type'] = 'application/json';
-        // axios.defaults.headers.post['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
         navigate(from, { replace: true });
     };
 

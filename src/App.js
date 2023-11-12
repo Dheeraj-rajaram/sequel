@@ -6,9 +6,8 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import ResetPassword from "./pages/ResetPassword";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import SignUp from "./pages/Signup";
-import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import Layout from "./components/layout/Layout";
 import RequireAuth from "./components/RequireAuth";
 

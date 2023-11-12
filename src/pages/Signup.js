@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import UserPool from '../UserPool';
 import Axios from '../api/Axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,19 +18,8 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await Axios.post('/signup', {email: formData.email, password: formData.password})
-    // console.log(response.data);
-    // redirect to login page
+    await Axios.post('/signup', {email: formData.email, password: formData.password})
     navigate('/login')
-
-    
-    // UserPool.signUp(formData.email, formData.password, [], null, (error, data) => {
-    //   if(error){
-    //     console.log(error)
-    //   }else {
-    //     console.log(data, formData);
-    //   }
-    // })
   };
 
   return (

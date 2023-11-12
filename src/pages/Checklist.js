@@ -1,11 +1,14 @@
-import axios from "axios";
+import Axios from "../api/Axios";
 import { useEffect, useState } from "react";
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 
 function CheckList() {
 
     let [step, setStep] = useState(1)
     let [progress, setProgress] = useState(33)
+    let [isLoading, setIsloading] = useState(true);
+
+    const navigate = useNavigate();
 
     function setStepToTwo() {
         setStep(2);
@@ -22,13 +25,26 @@ function CheckList() {
     }
     useEffect(() => {
         async function fetchData() {
-            // const token = localStorage.getItem('token')
-            // const response = await axios.post('/verify');
+            const token = localStorage.getItem('token')
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token,
+            };
+            try {
+                const response = await Axios.post('/verify', {}, { headers });
+                if (!response.data.isAuth) {
+                    navigate('/login');
+                } else {
+                    setIsloading(false)
+                }
+            } catch (error) {
+                navigate('/login');
+            }
         }
         fetchData();
     }, []);
     return (<>
-        <section className="">
+        {isLoading ? <></> : <section className="">
             <div className="container-fluid">
                 <div className="row justify-content-md-center">
 
@@ -180,7 +196,7 @@ function CheckList() {
 
                 </div>
             </div>
-        </section>
+        </section>}
     </>);
 }
 
