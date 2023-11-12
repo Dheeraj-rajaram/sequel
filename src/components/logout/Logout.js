@@ -5,7 +5,7 @@ function Logout() {
         UserPool.getCurrentUser().signOut()
     }
     return (
-        <button onClick={handleClick}>
+        <button className="btn btn-custom" onClick={handleClick}>
             Logout
         </button>
     );

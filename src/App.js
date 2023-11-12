@@ -9,45 +9,29 @@ import ResetPassword from "./pages/ResetPassword";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignUp from "./pages/Signup";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
+import Layout from "./components/layout/Layout";
+import RequireAuth from "./components/RequireAuth";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
+    <Routes>
+      <Route path="/" element={<Layout />}>
         {/* login */}
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<SignUp />}></Route>
-
         {/* private */}
-        <Route element={<ProtectedRoute />}>
+        <Route element={<RequireAuth />}>
           <Route path="/dashboard" element={<Dashboard />}></Route>
           <Route path="/checklist" element={<CheckList />}></Route>
         </Route>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         {/* public */}
         <Route path="/" exact element={<Home />}></Route>
         <Route path="/forgot-password" element={<ForgotPassword />}></Route>
         <Route path="/reset-password" element={<ResetPassword />}></Route>
         <Route path="/access" element={<Access />}></Route>
         <Route path="/create-account" element={<CreateAccount />}></Route>
-      </Routes>
-    </BrowserRouter>
+      </Route>
+    </Routes>
   );
 }
 

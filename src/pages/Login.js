@@ -1,39 +1,35 @@
 import { AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import UserPool from '../UserPool';
 import Logout from '../components/logout/Logout';
+import Axios from '../api/Axios';
+import AuthContext from '../context/AuthProvider';
+import useAuth from '../components/hooks/useAuth';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+// axios.defaults.baseURL = 'http://localhost:3002';
 
 const Login = () => {
+    const {authToken, setAuthToken} = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/checklist';
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleLogin = (event) => {
+    const handleLogin = async (event) => {
         event.preventDefault();
-        const user = new CognitoUser({
-            Username: email,
-            Pool: UserPool
-        });
-        const authDetails = new AuthenticationDetails({
-            Username: email,
-            Password: password
-        })
-        user.authenticateUser(authDetails, {
-            onSuccess: (success) => {
-                console.log({ success })
-            },
-            onFailure: (failure) => {
-                console.error({ failure })
-            },
-            newPasswordRequired: (newPwd) => {
-                console.log({ newPwd })
-            }
-        })
-        console.log(email, password);
+        const response = await Axios.post('/login', { email, password });
+        const token = response.data.accessToken;
+        localStorage.setItem('token', token);
+        setAuthToken(token);
+        console.log("step1: got token", token, {authToken});
+        navigate(from, { replace: true });
     };
 
     return (
         <div className="container mt-5">
-            <Logout/>
             <div className="row justify-content-center">
                 <div className="col-md-6">
                     <div className="card">
