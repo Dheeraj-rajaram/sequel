@@ -33,7 +33,6 @@ function CreateAccount() {
     const [isPwdChars, setIsPwdCharValid] = useState(false);
     const [isPwdLName, setIsPwdLNameValid] = useState(false);
     const [isPwdFName, setIsPwdFNameValid] = useState(false);
-    const [pwdMatchState, setPwdMatchState] = useState(true);
 
     const handleToggle = () => {
         if (type === 'password') {
@@ -94,12 +93,11 @@ function CreateAccount() {
             if(!dob){
                 throw 'date of birth cannot be empty'
             }
-            if (!isPwdLength || !isPwdChars || !isPwdLName || !isPwdFName || !pwdMatchState) {
+            if (!isPwdLength || !isPwdChars || !isPwdLName || !isPwdFName ) {
                 throw "passwords do not match the criteria"
             }
 
             if (password !== confirmPassword) {
-                setPwdMatchState(false)
                 throw "passwords are not the same";
             }
             let response = await Axios.post('/signup', { email, firstName, lastName, dob, phonenumber, password });
