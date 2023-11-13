@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 export default function Dashboard() {
     const navigate = useNavigate();
     const [isLoading, setIsloading] = useState(true);
+    const email = localStorage.getItem('email')
 
     useEffect(() => {
         async function fetchData() {
@@ -35,8 +36,7 @@ export default function Dashboard() {
         :
         <>
             <MinimalNav />
-            <Logout />
-            <h1 className="text-center">Dashboard</h1>
+            <p className="text-center">Welcome to the dashboard {email}!</p>
         </>}
     </>)
 }

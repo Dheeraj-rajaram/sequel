@@ -54,7 +54,7 @@ function Access() {
         <section className="">
             <div className="container-fluid">
                 <div className="row justify-content-md-center">
-                    <div className="col-md-5 vh-100">
+                    <div className="col-md-6 vh-100">
                         <div className="container">
                             <div className="row justify-content-md-center">
                                 <nav className="navbar navbar-expand-lg navbar-light mb-5">
@@ -110,7 +110,7 @@ function Access() {
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-7 vh-100 bg-light d-none d-sm-block d-sm-none d-md-block">
+                    <div className="col-md-6 vh-100 bg-light d-none d-sm-block d-sm-none d-md-block">
                         <div className="container">
                             <div className="row justify-content-md-center">
                                 <div className="col-md-auto  mt-5">

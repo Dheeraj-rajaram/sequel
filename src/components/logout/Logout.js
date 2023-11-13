@@ -7,7 +7,8 @@ function Logout() {
         navigate('/access');
     }
     return (
-        <button className="btn btn-custom" onClick={handleClick}>
+        <button className="btn btn-light" onClick={handleClick}>
+            <i class="bi bi-box-arrow-left"></i>&nbsp; &nbsp; 
             Logout
         </button>
     );

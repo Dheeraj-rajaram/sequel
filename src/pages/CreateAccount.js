@@ -97,14 +97,14 @@ function CreateAccount() {
                 throw "passwords are not the same";
             }
             await Axios.post('/signup', { email, firstName, lastName, dob, phonenumber, password });
-            // UserPool.signUp(email, password, [], null, (err, data) => {
-            //     if (err) {
-            //         console.error(err.message)
-            //     }
-            //     else {
-            //         console.log({ userSub: data.userSub, userName: data.user.username, clientId: data.uddser.pool.clientId });
-            //     }
-            // })
+            UserPool.signUp(email, password, [], null, (err, data) => {
+                if (err) {
+                    console.error(err.message)
+                }
+                else {
+                    console.log({ userSub: data.userSub, userName: data.user.username, clientId: data.uddser.pool.clientId });
+                }
+            })
             handleShow()
         } catch (error) {
             setError(error || 'something went wrong!')
