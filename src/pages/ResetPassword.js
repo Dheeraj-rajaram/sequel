@@ -59,7 +59,6 @@ function ResetPassword() {
                 throw "passwords are not the same"
             }
             await Axios.post('/reset-password', { password, token });
-            console.log(234)
             handleShow()
         } catch (error) {
             setError(error || 'something went wrong!')
