@@ -8,7 +8,7 @@ function Logout() {
     }
     return (
         <button className="btn btn-light" onClick={handleClick}>
-            <i class="bi bi-box-arrow-left"></i>&nbsp; &nbsp; 
+            <i className="bi bi-box-arrow-left"></i>&nbsp; &nbsp; 
             Logout
         </button>
     );

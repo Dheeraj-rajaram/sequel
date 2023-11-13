@@ -68,7 +68,7 @@ function CreateAccount() {
     }, [email, firstName, dob, phonenumber, confirmPassword, password]);
 
     useEffect(() => {
-        if (password && email && older18 && hasAuthorized && hasReadPolicy && !error) {
+        if (password && email && older18 && hasAuthorized && hasReadPolicy) {
             setCanSignin(true)
         } else {
             setCanSignin(false)
@@ -88,6 +88,12 @@ function CreateAccount() {
             if(/\d/.test(lastName) || lastName.length === 0){
                 throw 'last name can only contain letter'
             }
+            if(!phonenumber){
+                throw 'phone number cannot be empty'
+            }
+            if(!dob){
+                throw 'date of birth cannot be empty'
+            }
             if (!isPwdLength || !isPwdChars || !isPwdLName || !isPwdFName || !pwdMatchState) {
                 throw "passwords do not match the criteria"
             }
@@ -96,7 +102,10 @@ function CreateAccount() {
                 setPwdMatchState(false)
                 throw "passwords are not the same";
             }
-            await Axios.post('/signup', { email, firstName, lastName, dob, phonenumber, password });
+            let response = await Axios.post('/signup', { email, firstName, lastName, dob, phonenumber, password });
+            if(response.data?.isDuplicate) {
+                throw "user already exists";
+            }
             UserPool.signUp(email, password, [], null, (err, data) => {
                 if (err) {
                     console.error(err.message)
@@ -158,9 +167,7 @@ function CreateAccount() {
                         <nav className="navbar navbar-light bg-light border-bottom px-3 py-3">
                             <img src="/images/logo.png" alt="logo" width="130" />
                         </nav>
-                        {error? <div class="alert alert-danger" role="alert">
-{error}
-</div>: ''}
+                        {error? <div className="alert alert-danger" role="alert">{error}</div>: ''}
                         <div className="col-md-auto w-75">
                             <div className="text-start mt-5">
                                 <div className="">Account setup</div>
@@ -185,7 +192,6 @@ function CreateAccount() {
                                                 placeholder=""
                                                 onChange={(e) => setFirstName(e.target.value)} />
                                             <label htmlFor="firstName">First Name *</label>
-                                            <p className="text-danger">{fnameErr}</p>
                                         </div>
                                     </div>
 
