@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from 'react-router-dom';
 import Axios from "../api/Axios";
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 
 function ResetPassword() {
     const [confirmPassword, setConfirmPassword] = useState("");

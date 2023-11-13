@@ -1,4 +1,3 @@
-import Logout from "../components/logout/Logout";
 import MinimalNav from "../components/navbar/MinimalNav";
 import Axios from "../api/Axios";
 import { useNavigate } from "react-router-dom";
@@ -36,7 +35,7 @@ export default function Dashboard() {
         :
         <>
             <MinimalNav />
-            <p className="text-center">Welcome to the dashboard {email}!</p>
+            <p className="text-center">Welcome to the dashboard! {email}</p>
         </>}
     </>)
 }

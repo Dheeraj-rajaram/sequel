@@ -39,7 +39,6 @@ function CheckList() {
                 setTwistedSystem(stringToBoolean(response.data.user.twistedSystem));
                 setIncertion(stringToBoolean(response.data.user.incertion));
                 setInfustion(stringToBoolean(response.data.user.infustion));
-                console.log(stringToBoolean(response.data.user, typeof response.data.user.infustion));
             } catch (error) {
 
             }
@@ -87,7 +86,6 @@ function CheckList() {
         {isLoading ? <></> : <section className="">
             <div className="container-fluid">
                 <div className="row justify-content-md-center">
-
                     <div className="col-lg-6 vh-100 bg-light">
                         <div className="container mt-5">
                             <h1>Get start checklist</h1>
