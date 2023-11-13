@@ -1,14 +1,51 @@
 import Axios from "../api/Axios";
 import { useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function CheckList() {
-
-    let [step, setStep] = useState(1)
     let [progress, setProgress] = useState(33)
     let [isLoading, setIsloading] = useState(true);
 
+    let [step, setStep] = useState(1)
+    let [IsAedBatteryChecked, setAedBattery] = useState(false)
+    let [IsTwistedSystemChecked, setTwistedSystem] = useState(false)
+    let [IsInfusionChecked, setInfustion] = useState(false)
+    let [IsIncertionChecked, setIncertion] = useState(false)
+
     const navigate = useNavigate();
+
+    async function saveStepOne() {
+        setStepToTwo();
+        try {
+            const email = localStorage.getItem('email')
+            const response = await Axios.post(
+                '/save-stepone',
+                { email, IsAedBatteryChecked, IsTwistedSystemChecked, IsInfusionChecked, IsIncertionChecked, step }
+            );
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    function stringToBoolean(str) {
+        return str === "true";
+    }
+
+    useEffect(() => {
+        async function fetchData() {
+            const email = localStorage.getItem('email')
+            try {
+                const response = await Axios.post('/get-stepdata', { email });
+                setAedBattery(stringToBoolean(response.data.user.aedBattery));
+                setTwistedSystem(stringToBoolean(response.data.user.twistedSystem));
+                setIncertion(stringToBoolean(response.data.user.incertion));
+                setInfustion(stringToBoolean(response.data.user.infustion));
+                console.log(stringToBoolean(response.data.user, typeof response.data.user.infustion));
+            } catch (error) {
+
+            }
+        }
+        fetchData();
+    }, [])
 
     function setStepToTwo() {
         setStep(2);
@@ -43,6 +80,9 @@ function CheckList() {
         }
         fetchData();
     }, []);
+
+
+
     return (<>
         {isLoading ? <></> : <section className="">
             <div className="container-fluid">
@@ -120,8 +160,11 @@ function CheckList() {
                                             <div className="container">
                                                 <div className="row">
                                                     <div className="border mt-1">
-                                                        <input className="form-check-input mt-4 m-1" type="checkbox" value="" id="flexCheckChecked" />
-                                                        <label className="form-check-label" htmlFor="flexCheckChecked">
+                                                        <input className="form-check-input mt-4 m-1" type="checkbox" value=""
+                                                            id="aedBattery"
+                                                            checked={IsAedBatteryChecked}
+                                                            onChange={() => setAedBattery(prev => !prev)} />
+                                                        <label className="form-check-label" htmlFor="aedBattery">
                                                             <div className="px-3 mt-2">
                                                                 <h6>AED battery</h6>
                                                                 <p>Make sure your supplies are ready for testing</p>
@@ -129,8 +172,11 @@ function CheckList() {
                                                         </label>
                                                     </div>
                                                     <div className="border mt-3">
-                                                        <input className="form-check-input mt-4 m-1" type="checkbox" value="" id="d" />
-                                                        <label className="form-check-label" htmlFor="d">
+                                                        <input className="form-check-input mt-4 m-1" type="checkbox" value=""
+                                                            id="twistSystem"
+                                                            checked={IsTwistedSystemChecked}
+                                                            onChange={() => setTwistedSystem(prev => !prev)} />
+                                                        <label className="form-check-label" htmlFor="twistSystem">
                                                             <div className="px-3 mt-2">
                                                                 <h6>Twiist system</h6>
                                                                 <p>Make sure you  have all supplies for your system</p>
@@ -138,8 +184,11 @@ function CheckList() {
                                                         </label>
                                                     </div>
                                                     <div className="border mt-3">
-                                                        <input className="form-check-input mt-4 m-1" type="checkbox" value="" id="d" />
-                                                        <label className="form-check-label" htmlFor="d">
+                                                        <input className="form-check-input mt-4 m-1" type="checkbox" value=""
+                                                            id="infusion"
+                                                            checked={IsInfusionChecked}
+                                                            onChange={() => setInfustion(prev => !prev)} />
+                                                        <label className="form-check-label" htmlFor="infusion">
                                                             <div className="px-3 mt-2">
                                                                 <h6>Infusion set</h6>
                                                                 <p>IV line</p>
@@ -147,8 +196,11 @@ function CheckList() {
                                                         </label>
                                                     </div>
                                                     <div className="border mt-3">
-                                                        <input className="form-check-input mt-4 m-1" type="checkbox" value="" id="d" />
-                                                        <label className="form-check-label" htmlFor="d">
+                                                        <input className="form-check-input mt-4 m-1" type="checkbox" value=""
+                                                            id="incertion"
+                                                            checked={IsIncertionChecked}
+                                                            onChange={() => setIncertion(prev => !prev)} />
+                                                        <label className="form-check-label" htmlFor="incertion">
                                                             <div className="px-3 mt-2">
                                                                 <h6>Infustion set incertion device</h6>
                                                                 <p>Quick incertion</p>
@@ -158,7 +210,7 @@ function CheckList() {
                                                 </div>
                                             </div>
                                             <div className="d-grid mt-4">
-                                                <button type="submit" className="btn btn-custom" onClick={setStepToTwo}>Continue</button>
+                                                <button type="submit" className="btn btn-custom" onClick={saveStepOne}>Continue</button>
                                             </div>
                                         </div>
 

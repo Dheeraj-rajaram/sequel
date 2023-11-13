@@ -12,6 +12,7 @@ function Access() {
     const [type, setType] = useState('password');
     const [icon, setIcon] = useState('eyeoff');
     const [canSignin, setCanSignin] = useState(false);
+    const [error, setError] = useState('')
 
     const handleToggle = () => {
         if (type === 'password') {
@@ -24,6 +25,7 @@ function Access() {
     }
 
     useEffect(() => {
+        setError(null)
         if (password && email) {
             setCanSignin(true)
         } else {
@@ -32,12 +34,20 @@ function Access() {
     }, [password, email])
 
     const handleLogin = async (event) => {
-        console.log("sadfasdfasfasdf")
         event.preventDefault();
-        const response = await Axios.post('/login', { email, password });
-        const token = response.data.accessToken;
-        localStorage.setItem('token', token);
-        navigate(from, { replace: true });
+        try {
+            const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/;
+            if(!emailRegex.test(email)){
+                throw {response: {data: 'email is invalid'}}
+            }
+            const response = await Axios.post('/login', { email, password });
+            const token = response.data.accessToken;
+            localStorage.setItem('token', token);
+            localStorage.setItem('email', email);
+            navigate(from, { replace: true });
+        } catch (error) {
+            setError(error.response.data)
+        }
     };
 
     return (
@@ -84,14 +94,15 @@ function Access() {
                                                 </div>
                                             </div>
                                             <div className="d-grid">
+                                                <p className="text-danger">{error}</p>
                                                 {canSignin ? <button type="submit" className="btn btn-custom" onClick={handleLogin}>Sign In</button> : <button type="submit" className="btn btn-secondary" disabled>Sign In</button>}
                                             </div>
                                             <div className="mt-1">Frogot your <Link className="text-primary" style={{ textDecoration: "none" }} to="/forgot-password">Password?</Link></div>
 
                                             <Link className="d-grid mt-3 d-xxl-none d-xl-none d-lg-none d-md-none" style={{ textDecoration: "none" }} to="/create-account">
-                                                <button 
-                                                type="submit" 
-                                                className="btn btn-custom"> Create Account </button>
+                                                <button
+                                                    type="submit"
+                                                    className="btn btn-custom"> Create Account </button>
                                             </Link>
                                         </form>
                                     </div>

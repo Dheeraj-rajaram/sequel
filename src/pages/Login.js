@@ -12,10 +12,14 @@ const Login = () => {
 
     const handleLogin = async (event) => {
         event.preventDefault();
-        const response = await Axios.post('/login', { email, password });
-        const token = response.data.accessToken;
-        localStorage.setItem('token', token);
-        navigate(from, { replace: true });
+        try {
+            const response = await Axios.post('/login', { email, password });
+            const token = response.data.accessToken;
+            localStorage.setItem('token', token);
+            navigate(from, { replace: true });
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     return (

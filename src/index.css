@@ -35,6 +35,11 @@ code {
   vertical-align: middle;
 }
 
+.btn-red-border {
+  border-color: red !important;
+}
+
+
 
 
 
