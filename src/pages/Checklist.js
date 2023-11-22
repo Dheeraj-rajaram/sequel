@@ -324,7 +324,7 @@ function CheckList() {
                                 </div>
                             </div> : <div className="container-fluid"  style={{maxWidth: "600px"}}>
                                 <h1>Download the medical app</h1>
-                                <strong>Lets guide you on how to download Oreo- CGM app.<br /><br /></strong>
+                                <strong>Let's guide you on how to download Oreo- CGM app.<br /><br /></strong>
 
                                 <img src="/images/img5.png" alt="logo" width="500" />
                                 <Link className="d-grid mt-4" to="/dashboard" style={{ textDecoration: "none" }}>
