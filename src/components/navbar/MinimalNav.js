@@ -3,7 +3,7 @@ import Logout from "../logout/Logout";
 function MinimalNav() {
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
           <a className="navbar-brand" href="#">
             <img src="/images/logo.png" alt="logo" width="90" />
