@@ -6,26 +6,32 @@ function CheckList() {
     let [progress, setProgress] = useState(33)
     let [isLoading, setIsloading] = useState(true);
 
+    // change here
     let [step, setStep] = useState(1)
-    let [IsAedBatteryChecked, setAedBattery] = useState(false)
-    let [IsTwistedSystemChecked, setTwistedSystem] = useState(false)
-    let [IsInfusionChecked, setInfustion] = useState(false)
-    let [IsIncertionChecked, setIncertion] = useState(false)
+    let [IsUserGuideChecked, setUserGuide] = useState(false)
+    let [IsInsulinPumpWithCoverChecked, setInsulinPumpWithCoverChecked] = useState(false)
+    let [IsWalladapterChecked, setWalladapter] = useState(false)
+    let [IsUsebCableChecked, setUsbCable] = useState(false)
+    let [IsPumpchargerChecked, setPumpCharger] = useState(false)
+    let [IsRechargableBatteryChecked, setRechargableBattery] = useState(false)
+    let [IsPumpclipChecked, setPumpclip] = useState(false)
+
     let [checklistOptionText, setChecklistOptionText] = useState("A trainer will reach out to you within 24 hours to help you setup your device");
 
     const navigate = useNavigate();
 
     async function saveStepOne() {
         setStepToTwo();
-        try {
-            const email = localStorage.getItem('email')
-            const response = await Axios.post(
-                '/save-stepone',
-                { email, IsAedBatteryChecked, IsTwistedSystemChecked, IsInfusionChecked, IsIncertionChecked, step }
-            );
-        } catch (error) {
-            console.log(error)
-        }
+        // try {
+        //     // change here
+        //     const email = localStorage.getItem('email')
+        //     const response = await Axios.post(
+        //         '/save-stepone',
+        //         { email, IsUserGuideChecked, IsInsulinPumpWithCoverChecked, IsUsebCableChecked, IsWalladapterChecked, IsPumpchargerChecked, IsRechargableBatteryChecked, IsPumpclipChecked, step }
+        //     );
+        // } catch (error) {
+        //     console.log(error)
+        // }
     }
     function stringToBoolean(str) {
         return str === "true";
@@ -35,11 +41,15 @@ function CheckList() {
         async function fetchData() {
             const email = localStorage.getItem('email')
             try {
+                // change here
                 const response = await Axios.post('/get-stepdata', { email });
-                setAedBattery(stringToBoolean(response.data.user.aedBattery));
-                setTwistedSystem(stringToBoolean(response.data.user.twistedSystem));
-                setIncertion(stringToBoolean(response.data.user.incertion));
-                setInfustion(stringToBoolean(response.data.user.infustion));
+                setUserGuide(stringToBoolean(response.data.user.IsUserGuideChecked));
+                setInsulinPumpWithCoverChecked(stringToBoolean(response.data.user.IsInsulinPumpWithCoverChecked));
+                setWalladapter(stringToBoolean(response.data.user.IsWalladapterChecked));
+                setUsbCable(stringToBoolean(response.data.user.IsUsebCableChecked));
+                setPumpCharger(stringToBoolean(response.data.user.IsPumpchargerChecked));
+                setRechargableBattery(stringToBoolean(response.data.user.IsRechargableBatteryChecked));
+                setPumpclip(stringToBoolean(response.data.user.IsPumpclipChecked));
             } catch (error) {
 
             }
@@ -56,9 +66,19 @@ function CheckList() {
         setProgress(33);
     }
 
-    function setStepToThree() {
+    async function setStepToThree() {
         setStep(3);
         setProgress(100);
+        try {
+            // change here
+            const email = localStorage.getItem('email')
+            const response = await Axios.post(
+                '/save-stepone',
+                { email, IsUserGuideChecked, IsInsulinPumpWithCoverChecked, IsUsebCableChecked, IsWalladapterChecked, IsPumpchargerChecked, IsRechargableBatteryChecked, IsPumpclipChecked, step }
+            );
+        } catch (error) {
+            console.log(error)
+        }
     }
     useEffect(() => {
         async function fetchData() {
@@ -197,62 +217,8 @@ function CheckList() {
                                             </div>
                                         </label>
                                     </div>
-
-
                                     <div className="p-2">
-                                        <div className="form-check">
-                                            <div className="container">
-                                                <div className="row">
-                                                    <div className="border mt-1">
-                                                        <input className="form-check-input mt-4 m-1" type="checkbox" value=""
-                                                            id="aedBattery"
-                                                            checked={IsAedBatteryChecked}
-                                                            onChange={() => setAedBattery(prev => !prev)} />
-                                                        <label className="form-check-label" htmlFor="aedBattery">
-                                                            <div className="px-3 mt-2">
-                                                                <h6>AED battery</h6>
-                                                                <p>Make sure your supplies are ready for testing</p>
-                                                            </div>
-                                                        </label>
-                                                    </div>
-                                                    <div className="border mt-3">
-                                                        <input className="form-check-input mt-4 m-1" type="checkbox" value=""
-                                                            id="twistSystem"
-                                                            checked={IsTwistedSystemChecked}
-                                                            onChange={() => setTwistedSystem(prev => !prev)} />
-                                                        <label className="form-check-label" htmlFor="twistSystem">
-                                                            <div className="px-3 mt-2">
-                                                                <h6>Twiist system</h6>
-                                                                <p>Make sure you  have all supplies for your system</p>
-                                                            </div>
-                                                        </label>
-                                                    </div>
-                                                    <div className="border mt-3">
-                                                        <input className="form-check-input mt-4 m-1" type="checkbox" value=""
-                                                            id="infusion"
-                                                            checked={IsInfusionChecked}
-                                                            onChange={() => setInfustion(prev => !prev)} />
-                                                        <label className="form-check-label" htmlFor="infusion">
-                                                            <div className="px-3 mt-2">
-                                                                <h6>Infusion set</h6>
-                                                                <p>IV line</p>
-                                                            </div>
-                                                        </label>
-                                                    </div>
-                                                    <div className="border mt-3">
-                                                        <input className="form-check-input mt-4 m-1" type="checkbox" value=""
-                                                            id="incertion"
-                                                            checked={IsIncertionChecked}
-                                                            onChange={() => setIncertion(prev => !prev)} />
-                                                        <label className="form-check-label" htmlFor="incertion">
-                                                            <div className="px-3 mt-2">
-                                                                <h6>Infustion set incertion device</h6>
-                                                                <p>Quick incertion</p>
-                                                            </div>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div className="">
                                             <div className="d-grid mt-4">
                                                 <button type="submit" className="btn btn-custom" onClick={saveStepOne}>Continue</button>
                                             </div>
@@ -274,45 +240,78 @@ function CheckList() {
                                             <div className="row">
                                                 <div className="border mt-2 p-1 px-3">
                                                     <input className="form-check-input mt-2 m-" type="checkbox" value=""
-                                                        id="aedBattery"
-                                                        checked={IsAedBatteryChecked}
-                                                        onChange={() => setAedBattery(prev => !prev)} />
-                                                    <label className="form-check-label" htmlFor="aedBattery">
+                                                        id="tuserguide"
+                                                        checked={IsUserGuideChecked}
+                                                        onChange={() => setUserGuide(prev => !prev)} />
+                                                    <label className="form-check-label" htmlFor="tuserguide">
                                                         <div className="px-3 mt-2">
-                                                            <h6>AED battery</h6>
+                                                            <h6>Twiist user guide</h6>
                                                         </div>
                                                     </label>
                                                 </div>
                                                 <div className="border mt-3 p-1 px-3">
                                                     <input className="form-check-input mt-2 m-1" type="checkbox" value=""
-                                                        id="twistSystem"
-                                                        checked={IsTwistedSystemChecked}
-                                                        onChange={() => setTwistedSystem(prev => !prev)} />
-                                                    <label className="form-check-label" htmlFor="twistSystem">
+                                                        id="insulinpumpwithcover"
+                                                        checked={IsInsulinPumpWithCoverChecked}
+                                                        onChange={() => setInsulinPumpWithCoverChecked(prev => !prev)} />
+                                                    <label className="form-check-label" htmlFor="insulinpumpwithcover">
                                                         <div className="px-3 mt-2">
-                                                            <h6>Twiist system</h6>
+                                                            <h6>Twiist insulin pump with attached pump cover</h6>
                                                         </div>
                                                     </label>
                                                 </div>
                                                 <div className="border mt-3 p-1 px-3">
                                                     <input className="form-check-input mt-2 m-1" type="checkbox" value=""
-                                                        id="infusion"
-                                                        checked={IsInfusionChecked}
-                                                        onChange={() => setInfustion(prev => !prev)} />
-                                                    <label className="form-check-label" htmlFor="infusion">
+                                                        id="usbcable"
+                                                        checked={IsUsebCableChecked}
+                                                        onChange={() => setUsbCable(prev => !prev)} />
+                                                    <label className="form-check-label" htmlFor="usbcable">
                                                         <div className="px-3 mt-2">
-                                                            <h6>Infusion set</h6>
+                                                            <h6>USB cable</h6>
                                                         </div>
                                                     </label>
                                                 </div>
                                                 <div className="border mt-3 p-1 px-3">
                                                     <input className="form-check-input mt-2 m-1" type="checkbox" value=""
-                                                        id="incertion"
-                                                        checked={IsIncertionChecked}
-                                                        onChange={() => setIncertion(prev => !prev)} />
-                                                    <label className="form-check-label" htmlFor="incertion">
+                                                        id="walladapter"
+                                                        checked={IsWalladapterChecked}
+                                                        onChange={() => setWalladapter(prev => !prev)} />
+                                                    <label className="form-check-label" htmlFor="walladapter">
                                                         <div className="px-3 mt-2">
-                                                            <h6>Infustion set incertion device</h6>
+                                                            <h6>Wall powered adapter with 2 USB ports</h6>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                                <div className="border mt-3 p-1 px-3">
+                                                    <input className="form-check-input mt-2 m-1" type="checkbox" value=""
+                                                        id="pumpcharger"
+                                                        checked={IsPumpchargerChecked}
+                                                        onChange={() => setPumpCharger(prev => !prev)} />
+                                                    <label className="form-check-label" htmlFor="pumpcharger">
+                                                        <div className="px-3 mt-2">
+                                                            <h6>2 pump batter chargers</h6>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                                <div className="border mt-3 p-1 px-3">
+                                                    <input className="form-check-input mt-2 m-1" type="checkbox" value=""
+                                                        id="rechargablebattery"
+                                                        checked={IsRechargableBatteryChecked}
+                                                        onChange={() => setRechargableBattery(prev => !prev)} />
+                                                    <label className="form-check-label" htmlFor="rechargablebattery">
+                                                        <div className="px-3 mt-2">
+                                                            <h6>Rechargable pump batteries (4 batteries)</h6>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                                <div className="border mt-3 p-1 px-3">
+                                                    <input className="form-check-input mt-2 m-1" type="checkbox" value=""
+                                                        id="pumpclip"
+                                                        checked={IsPumpclipChecked}
+                                                        onChange={() => setPumpclip(prev => !prev)} />
+                                                    <label className="form-check-label" htmlFor="pumpclip">
+                                                        <div className="px-3 mt-2">
+                                                            <h6>Pump clip</h6>
                                                         </div>
                                                     </label>
                                                 </div>
