@@ -127,7 +127,7 @@ function CheckList() {
                         </div>
                     </div>
                     <div className="col-lg-6 vh-100 bg-light">
-                        <div className="container">
+                        <div className="container-fluid"  style={{maxWidth: "600px"}}>
                             <h1>Get started checklist</h1>
                             <h6>To get the best experience, we recommend completing these onboarding steps.</h6>
                             <div className="progress my-3" style={{ height: "12px" }}>
@@ -185,11 +185,11 @@ function CheckList() {
                                     }
                                 </div>
                             </div>
-                        </div>
+                        </div><br /><br />
                     </div>
                     <div className="col-lg-6 vh-100">
                         {
-                            step === 1 ? <div className="container">
+                            step === 1 ? <div className="container-fluid" style={{maxWidth: "600px"}}>
                                 <h1>Schedule your training</h1>
                                 <div className="">
                                     <div className=" mt-4" style={{ maxWidth: "600px" }}>
@@ -226,7 +226,7 @@ function CheckList() {
                                     </div>
                                 </div>
                             </div> : step === 2 ? <div>
-                                <div className="container-fluid mt-5">
+                                <div className="container-fluid mt-5" style={{maxWidth: "600px"}}>
                                     <h1>Supply checklist</h1>
                                     <div className="mt-2">
                                         <label className="form-check-label" htmlFor="flexCheckChecked">
@@ -322,16 +322,17 @@ function CheckList() {
                                         <button type="submit" className="btn btn-custom" onClick={setStepToThree}>Continue</button>
                                     </div>
                                 </div>
-                            </div> : <div className="container">
+                            </div> : <div className="container-fluid"  style={{maxWidth: "600px"}}>
                                 <h1>Download the medical app</h1>
-                                <strong>Lets guide you on how to download Oreo- CGM app.<br/><br/></strong>
-                                
+                                <strong>Lets guide you on how to download Oreo- CGM app.<br /><br /></strong>
+
                                 <img src="/images/img5.png" alt="logo" width="500" />
                                 <Link className="d-grid mt-4" to="/dashboard" style={{ textDecoration: "none" }}>
                                     <button type="submit" className="btn btn-custom">Go to dashboard</button>
                                 </Link>
                             </div>
                         }
+                        <br /><br />
                     </div>
                 </div>
             </div>
