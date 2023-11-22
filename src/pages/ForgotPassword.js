@@ -54,7 +54,7 @@ function ForgotPassword() {
                                                             <img src="/images/img3.png" style={{ marginTop: "-90px"}} alt="logo" width="130" />
                                                             <h2>Thank you!</h2>
                                                             <div> You will recieve a reminder email shortly.</div>
-                                                            <Link style={{ textDecoration: "none" }} className="d-grid">
+                                                            <Link to="/" style={{ textDecoration: "none" }} className="d-grid">
                                                                 <button type="button" className="btn btn-custom mt-3" onClick={handleClose}>Close</button>
                                                             </Link>
                                                         </div></div>

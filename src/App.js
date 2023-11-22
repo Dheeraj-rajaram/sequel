@@ -19,7 +19,7 @@ function App() {
           <Route path="/checklist" element={<CheckList />}></Route>
         </Route>
         {/* public */}
-        <Route path="/" exact element={<Home />}></Route>
+        <Route path="/" exact element={<Dashboard />}></Route>
         <Route path="/forgot-password" element={<ForgotPassword />}></Route>
         <Route path="/reset-password" element={<ResetPassword />}></Route>
         <Route path="/access" element={<Access />}></Route>

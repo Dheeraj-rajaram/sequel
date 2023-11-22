@@ -13,7 +13,14 @@ function CreateAccount() {
     const [firstName, setFirstName] = useState("");
     const [phonenumber, setPhonenumber] = useState();
     const [lastName, setLastName] = useState("");
-    const [dob, setDOB] = useState("");
+    
+    const currentDate = new Date();
+    const minDate = new Date(currentDate);
+    minDate.setFullYear(currentDate.getFullYear() - 120);
+    const maxDate = new Date(currentDate);
+    maxDate.setFullYear(currentDate.getFullYear() - 18);
+    const [dob, setDOB] = useState();
+    
     const [type, setType] = useState('password');
     const [icon, setIcon] = useState('eyeoff');
     const [confirmType, setConfirmType] = useState('password');
@@ -211,6 +218,7 @@ function CreateAccount() {
                                                 onChange={(e) => setDOB(e.value)}
                                                 dateFormat="mm/dd/yy"
                                                 placeholder="mm-dd-yy"
+                                                minDate={minDate} maxDate={maxDate} 
                                                 showIcon />
                                         </div>
                                     </div>
